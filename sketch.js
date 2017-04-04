@@ -15,12 +15,15 @@ var screenWidth = 600, screenHeight = 400, player;
 var colorsUnlocked = [true, true, true, false, false, false, false, false, false, false, false, false, false, false];
 var daTime = "8:00 AM";
 var keys = {};
+var img;
 keyPressed = function () {
     keys[keyCode] = keys[key.toString().toLowerCase()] = true;
 };
 keyReleased = function () {
     keys[keyCode] = keys[key.toString().toLowerCase()] = false;
 };
+
+
 
 function time(data) {
     var minutes = floor(data / 3600);
@@ -38,6 +41,8 @@ function setup() {
     buttons = [
         new Button(200, 200, false, function () { console.log(":P"); }, "BUTTON")
     ];
+    img = createGraphics(screenWidth, screenHeight, P2D);
+    
 } 
 
 var mouse = {
@@ -63,16 +68,16 @@ function Button(x, y, isRect, onClick, text) {
     this.maxR = 60;
     this.onClick = onClick || function () {};
     this.w = 30;
-    this.w = 60;
-    this.draw();
-    this.over = function () {
+    this.h = 60;
+};
+
+Button.prototype.over = function () {
         if (!this.isRect) {
              return dist(mouse.x, mouse.y, this.x, this.y) <= this.r;
         } else {
             return mouse.x >= this.x && mouse.x <= this.x + this.w &&
                mouse.y >= this.y && mouse.y <= this.y + this.h;
         }  
-    };
 };
 
 Button.prototype.draw = function() {
@@ -157,20 +162,51 @@ Food.prototype.draw = function() {
         break;
         case "StrawBerry":
         text("🍓", this.x, this.y);
-        this.stats = {};
+        this.stats = {
+            protein: 0,
+            fats: 0,
+            carbs: 3
+        };
         break;
         case "Grape":
         text("🍇", this.x, this.y);
-        this.stats = {};
+        this.stats = {
+            protein: 0,
+            fats: 0,
+            carbs: 9
+        };
+        break;
+        case "Apple":
+        text("🍎", this.x, this.y);
+        this.stats = {
+            protein: 0,
+            fats: 0,
+            carbs: 5
+        };
         break;
         case "WaterMelon":
         text("🍉", this.x, this.y);
-        this.stats = {};
+        this.stats = {
+            protein: 0,
+            fats: 0,
+            carbs: 4
+        };
         break;
         case "Egg":
         text("🍳", this.x, this.y);
-        this.stats = {};
+        this.stats = {
+            protein: 10,
+            fats: 0,
+            carbs: 0
+        };
         break;
+        case "Sushi": 
+        text('🍣', this.x, this.y);
+        this.stats = {
+            protein: 0,
+            fats: 6,
+            carbs: 0
+        };
         case "IceCream":
         text("🍦", this.x, this.y);
         this.stats = {};
