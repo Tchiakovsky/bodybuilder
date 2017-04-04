@@ -36,7 +36,7 @@ function setup() {
         color(255, 0, 0)
     ];
     buttons = [
-
+        new Button(200, 200, false, function () { console.log(":P"); }, "BUTTON")
     ];
 } 
 
@@ -235,4 +235,5 @@ player = new BodyBuilder({});
 
 draw = function () {
     player.draw();
+    buttons[0].draw();
 };
