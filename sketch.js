@@ -39,7 +39,7 @@ function setup() {
         color(255, 0, 0)
     ];
     buttons = [
-        new Button(200, 200, false, function () { console.log(":P"); }, "BUTTON")
+        new Button(100, 200, false, function () { console.log(":P"); }, "BUTTON", color(20), color(255))
     ];
     img = createGraphics(screenWidth, screenHeight, P2D);
     
@@ -58,7 +58,7 @@ function dist() {
     }
 }
 
-function Button(x, y, isRect, onClick, text) {
+function Button(x, y, isRect, onClick, text, color, textColor) {
     this.x = x;
     this.y = y;
     this.text = text;
@@ -67,8 +67,10 @@ function Button(x, y, isRect, onClick, text) {
     this.r = this.minR;
     this.maxR = 60;
     this.onClick = onClick || function () {};
-    this.w = 30;
+    this.w = 60;
     this.h = 60;
+    this.color = color;
+    this.textColor = textColor;
 };
 
 Button.prototype.over = function () {
@@ -81,9 +83,11 @@ Button.prototype.over = function () {
 };
 
 Button.prototype.draw = function() {
+    this.w = this.text.length * 5;
     if (!this.isRect && this.over()) {
         this.r = this.maxR;
     }
+    fill(this.color);
     if (this.isRect) {
         rect(this.x, this.y, this.w, this.h);
     } else {
@@ -92,7 +96,8 @@ Button.prototype.draw = function() {
     if (this.over() && mouseIsPressed) {
         this.onClick();
     }
-    text(this.text, this.x, this.y);
+    fill(this.textColor);
+    text(this.text, this.x - 20, this.y);
 };
 
 var achs = {
@@ -270,6 +275,6 @@ BodyBuilder.prototype.draw = function () {
 player = new BodyBuilder({});
 
 draw = function () {
-    player.draw();
+   // player.draw();
     buttons[0].draw();
 };
